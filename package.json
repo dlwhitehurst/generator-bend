@@ -1,0 +1,22 @@
+{
+  "name": "generator-bend",
+  "version": "0.1.0",
+  "description": "A backend REST-API generator using Node.js-Express-MongoDB",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dlwhitehurst/generator-bend.git"
+  },
+  "keywords": [
+    "yeoman-generator"
+  ],
+  "author": "David L. Whitehurst",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/dlwhitehurst/generator-bend/issues"
+  },
+  "homepage": "https://github.com/dlwhitehurst/generator-bend#readme"
+}
