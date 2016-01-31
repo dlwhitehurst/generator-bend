@@ -2,6 +2,10 @@
   "name": "generator-bend",
   "version": "0.1.0",
   "description": "A backend REST-API generator using Node.js-Express-MongoDB",
+  "files": [
+    "app",
+    "entity"
+  ],
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -18,5 +22,10 @@
   "bugs": {
     "url": "https://github.com/dlwhitehurst/generator-bend/issues"
   },
-  "homepage": "https://github.com/dlwhitehurst/generator-bend#readme"
+  "homepage": "https://github.com/dlwhitehurst/generator-bend#readme",
+  "dependencies": {
+    "chalk": "^1.1.1",
+    "yeoman-generator": "^0.22.5",
+	"inquirer": "~0.1.4"
+  }
 }
