@@ -38,6 +38,13 @@ module.exports = BendGenerator.extend({
         defaults: false
     });	
 
+    // This method adds support for a `--skip-install` flag
+    this.option('skip-install', {
+        desc: 'Skip the node package manager (npm) install',
+        type: Boolean,
+        defaults: false
+    });	
+
   },
   
   // ********************************************************************************************
@@ -64,6 +71,10 @@ module.exports = BendGenerator.extend({
            if(this.skipSwagger){
                this.log(chalk.white('Skipping Swagger API hosting.\n'));
            }
+           if(this.skipInstall){
+               this.log(chalk.white('Skipping npm install.\n'));
+           }
+
        },
 
        setupVars : function () {
@@ -126,6 +137,8 @@ module.exports = BendGenerator.extend({
 
            // in case I use another NoSQL database instead of Mongo
 		   this.pkType = 'String';
+		   
+		   this.dummy = 'Dummy';
 
        },
 
@@ -170,40 +183,77 @@ module.exports = BendGenerator.extend({
 			this.copy('web/swagger-ui.min.js','web/swagger-ui.min.js');
 			this.copy('web/swagger.json','web/swagger.json');
 			
-			this.copy('web/css/print.css','');
-			this.copy('web/css/reset.css','');
-			this.copy('web/css/screen.css','');
-			this.copy('web/css/style.css','');
-			this.copy('web/css/typography.css','');
+			this.copy('web/css/print.css','web/css/print.css');
+			this.copy('web/css/reset.css','web/css/reset.css');
+			this.copy('web/css/screen.css','web/css/screen.css');
+			this.copy('web/css/style.css','web/css/style.css');
+			this.copy('web/css/typography.css','web/css/typography.css');
 			
-			this.copy('web/fonts/DroidSans-Bold.ttf','');
-			this.copy('web/fonts/DroidSans.ttf','');
+			this.copy('web/fonts/DroidSans-Bold.ttf','web/fonts/DroidSans-Bold.ttf');
+			this.copy('web/fonts/DroidSans.ttf','web/fonts/DroidSans.ttf');
 			
-			this.copy('web/images/collapse.gif','');
-			this.copy('web/images/expand.gif','');
-			this.copy('web/images/explorer_icons.png','');
-			this.copy('web/images/favicon-16x16.png','');
-			this.copy('web/images/favicon-32x32.png','');
-			this.copy('web/images/favicon.ico','');
-			this.copy('web/images/logo_small.png','');
-			this.copy('web/images/throbber.gif','');
-			this.copy('web/images/wordnik_api.png','');
+			this.copy('web/images/collapse.gif','web/images/collapse.gif');
+			this.copy('web/images/expand.gif','web/images/expand.gif');
+			this.copy('web/images/explorer_icons.png','web/images/explorer_icons.png');
+			this.copy('web/images/favicon-16x16.png','web/images/favicon-16x16.png');
+			this.copy('web/images/favicon-32x32.png','web/images/favicon-32x32.png');
+			this.copy('web/images/favicon.ico','web/images/favicon.ico');
+			this.copy('web/images/logo_small.png','web/images/logo_small.png');
+			this.copy('web/images/throbber.gif','web/images/throbber.gif');
+			this.copy('web/images/wordnik_api.png','web/images/wordnik_api.png');
+			this.copy('web/images/pet_store_api.png','web/images/pet_store_api.png');
 			
-			this.copy('web/lang/en.js','');
+			this.copy('web/lang/en.js','web/lang/en.js');
+			this.copy('web/lang/es.js','web/lang/es.js');
+			this.copy('web/lang/fr.js','web/lang/fr.js');
+			this.copy('web/lang/it.js','web/lang/it.js');
+			this.copy('web/lang/ja.js','web/lang/ja.js');
+			this.copy('web/lang/pl.js','web/lang/pl.js');
+			this.copy('web/lang/pt.js','web/lang/pt.js');
+			this.copy('web/lang/ru.js','web/lang/ru.js');
+			this.copy('web/lang/tr.js','web/lang/tr.js');
+			this.copy('web/lang/zh-cn.js','web/lang/zh-cn.js');
+
+			this.copy('web/lang/translator.js','web/lang/translator.js');
 			
-			this.copy('web/lib/backbone-min.js','');
-			this.copy('web/lib/handlebars-2.0.0.js','');
-			this.copy('web/lib/highlight.7.3.pack.js','');
-			this.copy('web/lib/jquery-1.8.0.min.js','');
-			this.copy('web/lib/jquery.ba-bbq.min.js','');
-			this.copy('web/lib/jquery.slideto.min.js','');
-			this.copy('web/lib/jquery.wiggle.min.js','');
-			this.copy('web/lib/jsoneditor.min.js','');
-			this.copy('web/lib/marked.js','');
-			this.copy('web/lib/swagger-oauth.js','');
-			this.copy('web/lib/underscore-min.js','');
-			this.copy('web/lib/underscore-min.map','');
+			this.copy('web/lib/backbone-min.js','web/lib/backbone-min.js');
+			this.copy('web/lib/handlebars-2.0.0.js','web/lib/handlebars-2.0.0.js');
+			this.copy('web/lib/highlight.7.3.pack.js','web/lib/highlight.7.3.pack.js');
+			this.copy('web/lib/jquery-1.8.0.min.js','web/lib/jquery-1.8.0.min.js');
+			this.copy('web/lib/jquery.ba-bbq.min.js','web/lib/jquery.ba-bbq.min.js');
+			this.copy('web/lib/jquery.slideto.min.js','web/lib/jquery.slideto.min.js');
+			this.copy('web/lib/jquery.wiggle.min.js','web/lib/jquery.wiggle.min.js');
+			this.copy('web/lib/jsoneditor.min.js','web/lib/jsoneditor.min.js');
+			this.copy('web/lib/marked.js','web/lib/marked.js');
+			this.copy('web/lib/swagger-oauth.js','web/lib/swagger-oauth.js');
+			this.fs.copyTpl(this.templatePath('web/lib/underscore-min.js'),this.destinationPath('web/lib/underscore-min.js'),this, {});
+			this.fs.copyTpl(this.templatePath('web/lib/underscore-min.map'),this.destinationPath('web/lib/underscore-min.map'), this, {});
 			
 		}
-   }    
+   },
+
+  // ********************************************************************************************
+   install: function() {
+   	if (this.options['skip-install']) {
+    	this.log(
+        	'Your Node.js package dependencies are specified in package.json, however you chose to skip the installations.' +
+			'\nYou can inject these dependencies into your source code by running:' +
+            '\n' +
+            '\n' + chalk.yellow.bold('npm install')
+       	);
+	} else {
+		this.npmInstall();
+    }
+   },
+
+  // ********************************************************************************************
+   end: function() {
+   	if (this.dummy === 'Dummy') {
+		this.log(
+	     	'This application can be started with:' +
+	  		'\n' +
+	  		'\n' + chalk.yellow.bold('node server')
+	  	);
+   	}
+   }     
 });

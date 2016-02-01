@@ -4,12 +4,10 @@
 // written by David L. Whitehurst
 // January 28, 2106
 
+// determines the config (development or production)
 process.env.NODE_ENV = process.env.NODE_ENV || 'development';
 
-/*
- warning: always load the mongoose config first to provide
- every module after access to our model objects
-*/
+// always load mongoose config first
 var mongoose = require('./config/mongoose'),
   express = require('./config/express');
 
@@ -19,4 +17,10 @@ var app = express();
 app.listen(3000);
 module.exports = app;
 
-console.log('Server running at http://localhost:3000');
+if (process.env.NODE_ENV == 'development') {
+	console.log('Server running in DEVELOPMENT-mode on http://localhost:3000 (unavailable to others)');
+} else if (process.env.NODE_ENV == 'production') {
+	console.log('Server running in PRODUCTION-mode on http://localhost:3000 (publicly available)')
+} else {
+	console.log('ERROR: Configuration is improperly set.');
+}
