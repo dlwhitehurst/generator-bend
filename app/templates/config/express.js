@@ -1,0 +1,48 @@
+// **************************************
+// express.js
+//
+// written by David L. Whitehurst
+// January 28, 2016
+
+var config = require('./config'),
+  express = require('express'),
+  morgan = require('morgan'),
+  compress = require('compression'),
+  bodyParser = require('body-parser'),
+  methodOverride = require('method-override'),
+  session = require('express-session'),
+  cookieParser = require('cookie-parser');
+
+module.exports = function() {
+	
+	var app = express();
+	
+	if (process.env.NODE_ENV === 'development') {
+		app.use(morgan('dev'));
+	} else if (process.env.NODE_ENV === 'production') {
+		app.use(compress());
+	}
+	
+	app.use(bodyParser.urlencoded({
+		extended: true
+	}));
+	app.use(bodyParser.json());
+	app.use(methodOverride());
+    app.use(cookieParser());
+    app.use(session ({
+		resave: true,
+		saveUninitialized: true,
+		secret: config.sessionSecret
+    }));
+	
+    //app.set('views', './app/views');
+	//app.set('view engine', 'ejs');
+		
+	//require('../app/routes/index.server.routes.js')(app);
+	require('../app/routes/users.server.routes.js')(app);
+
+	
+	app.use(express.static('./web'));
+	return app;
+	
+};

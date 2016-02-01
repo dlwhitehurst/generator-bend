@@ -1,0 +1,24 @@
+{
+  "name": "<%= lowercaseBaseName %>",
+  "version": "0.0.3",
+  "description": "This application is my reference MEAN stack application",
+  "repository": "https://github.com/dlwhitehurst/mean-ref",
+  "dependencies": {
+    "body-parser": "~1.8.0",
+    "compression": "~1.0.11",
+    "cookie-parser": "^1.4.1",
+    "ejs": "~1.0.0",
+    "express": "^4.13.4",
+    "express-session": "~1.7.6",
+    "kerberos": "0.0.11",
+    "method-override": "~2.2.0",
+    "mongoose": "^4.3.7",
+    "morgan": "~1.3.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "David L. Whitehurst",
+  "license": "Apache-2.0"
+}

@@ -1,0 +1,8 @@
+{
+  "generator-bend": {
+    "bendVersion": "0.1.0",
+    "baseName": "bend",
+    "authenticationType": "oauth2",
+    "enableSocialSignIn": false
+  }
+}
