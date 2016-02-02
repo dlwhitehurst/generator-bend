@@ -134,7 +134,7 @@ module.exports = BendGenerator.extend({
        configureGlobal: function () {
 		   // just in case
            this.lowercaseBaseName = this.baseName.toLowerCase();
-
+		   
            // in case I use another NoSQL database instead of Mongo
 		   this.pkType = 'String';
 		   
@@ -151,83 +151,31 @@ module.exports = BendGenerator.extend({
   // ********************************************************************************************
    writing: {
     	writeProjectFiles: function () {
-        	this.template('_README.md', 'README.md', this, {});
-            this.copy('.gitignore', '.gitignore');
-            this.copy('.gitattributes', '.gitattributes');
-            this.template('_package.json', 'package.json', this, {});
-			this.copy('LICENSE', 'LICENSE');
-			this.copy('server.js','server.js');
+        	this.fs.copyTpl(this.templatePath('_README.md'), this.destinationPath('README.md'), this, {});
+            this.fs.copy(this.templatePath('.gitignore'), this.destinationPath('.gitignore'));
+            this.fs.copy(this.templatePath('.gitattributes'), this.destinationPath('.gitattributes'));
+            this.fs.copyTpl(this.templatePath('_package.json'), this.destinationPath('package.json'), this, {});
+			this.fs.copy(this.templatePath('LICENSE'), this.destinationPath('LICENSE'));
+			this.fs.copy(this.templatePath('server.js'),this.destinationPath('server.js'));
 
      	},
 
       	writeConfigurationFiles: function () { 
-            this.copy('config/config.js', 'config/config.js');
-            this.copy('config/express.js', 'config/express.js');
-            this.copy('config/mongoose.js', 'config/mongoose.js');
-			this.copy('config/env/development.js', 'config/env/development.js');
-			this.copy('config/env/production.js', 'config/env/production.js');
+            this.fs.copy(this.templatePath('config/config.js'), this.destinationPath('config/config.js'));
+            this.fs.copy(this.templatePath('config/express.js'), this.destinationPath('config/express.js'));
+            this.fs.copy(this.templatePath('config/mongoose.js'), this.destinationPath('config/mongoose.js'));
+			this.fs.copy(this.templatePath('config/env/development.js'), this.destinationPath('config/env/development.js'));
+			this.fs.copy(this.templatePath('config/env/production.js'), this.destinationPath('config/env/production.js'));
 			
 		},
 
       	writeApplicationFiles: function () {
-			this.copy('app/controllers/users.server.controller.js', 'app/controllers/users.server.controller.js');
-			this.copy('app/models/user.server.model.js','app/models/user.server.model.js');
-			this.copy('app/routes/users.server.routes.js', 'app/routes/users.server.routes.js');
-			
-		},
-		
-		writeStaticWebFiles: function () {
-			this.copy('web/index.html','web/index.html');
-			this.copy('web/o2c.html','web/o2c.html');
-			this.copy('web/swagger-ui.js','web/swagger-ui.js');
-			this.copy('web/swagger-ui.min.js','web/swagger-ui.min.js');
-			this.copy('web/swagger.json','web/swagger.json');
-			
-			this.copy('web/css/print.css','web/css/print.css');
-			this.copy('web/css/reset.css','web/css/reset.css');
-			this.copy('web/css/screen.css','web/css/screen.css');
-			this.copy('web/css/style.css','web/css/style.css');
-			this.copy('web/css/typography.css','web/css/typography.css');
-			
-			this.copy('web/fonts/DroidSans-Bold.ttf','web/fonts/DroidSans-Bold.ttf');
-			this.copy('web/fonts/DroidSans.ttf','web/fonts/DroidSans.ttf');
-			
-			this.copy('web/images/collapse.gif','web/images/collapse.gif');
-			this.copy('web/images/expand.gif','web/images/expand.gif');
-			this.copy('web/images/explorer_icons.png','web/images/explorer_icons.png');
-			this.copy('web/images/favicon-16x16.png','web/images/favicon-16x16.png');
-			this.copy('web/images/favicon-32x32.png','web/images/favicon-32x32.png');
-			this.copy('web/images/favicon.ico','web/images/favicon.ico');
-			this.copy('web/images/logo_small.png','web/images/logo_small.png');
-			this.copy('web/images/throbber.gif','web/images/throbber.gif');
-			this.copy('web/images/wordnik_api.png','web/images/wordnik_api.png');
-			this.copy('web/images/pet_store_api.png','web/images/pet_store_api.png');
-			
-			this.copy('web/lang/en.js','web/lang/en.js');
-			this.copy('web/lang/es.js','web/lang/es.js');
-			this.copy('web/lang/fr.js','web/lang/fr.js');
-			this.copy('web/lang/it.js','web/lang/it.js');
-			this.copy('web/lang/ja.js','web/lang/ja.js');
-			this.copy('web/lang/pl.js','web/lang/pl.js');
-			this.copy('web/lang/pt.js','web/lang/pt.js');
-			this.copy('web/lang/ru.js','web/lang/ru.js');
-			this.copy('web/lang/tr.js','web/lang/tr.js');
-			this.copy('web/lang/zh-cn.js','web/lang/zh-cn.js');
-
-			this.copy('web/lang/translator.js','web/lang/translator.js');
-			
-			this.copy('web/lib/backbone-min.js','web/lib/backbone-min.js');
-			this.copy('web/lib/handlebars-2.0.0.js','web/lib/handlebars-2.0.0.js');
-			this.copy('web/lib/highlight.7.3.pack.js','web/lib/highlight.7.3.pack.js');
-			this.copy('web/lib/jquery-1.8.0.min.js','web/lib/jquery-1.8.0.min.js');
-			this.copy('web/lib/jquery.ba-bbq.min.js','web/lib/jquery.ba-bbq.min.js');
-			this.copy('web/lib/jquery.slideto.min.js','web/lib/jquery.slideto.min.js');
-			this.copy('web/lib/jquery.wiggle.min.js','web/lib/jquery.wiggle.min.js');
-			this.copy('web/lib/jsoneditor.min.js','web/lib/jsoneditor.min.js');
-			this.copy('web/lib/marked.js','web/lib/marked.js');
-			this.copy('web/lib/swagger-oauth.js','web/lib/swagger-oauth.js');
-			this.fs.copyTpl(this.templatePath('web/lib/underscore-min.js'),this.destinationPath('web/lib/underscore-min.js'),this, {});
-			this.fs.copyTpl(this.templatePath('web/lib/underscore-min.map'),this.destinationPath('web/lib/underscore-min.map'), this, {});
+			this.fs.copy(this.templatePath('app/controllers/users.server.controller.js'), this.destinationPath('app/controllers/users.server.controller.js'));
+			this.fs.copyTpl(this.templatePath('app/controllers/index.server.controller.js'), this.destinationPath('app/controllers/index.server.controller.js'),this, {});
+			this.fs.copy(this.templatePath('app/models/user.server.model.js'), this.destinationPath('app/models/user.server.model.js'));
+			this.fs.copy(this.templatePath('app/routes/users.server.routes.js'), this.destinationPath('app/routes/users.server.routes.js'));
+			this.fs.copy(this.templatePath('app/routes/index.server.routes.js'), this.destinationPath('app/routes/index.server.routes.js'));
+			this.fs.copy(this.templatePath('app/views/index.ejs'), this.destinationPath('app/views/index.ejs'));
 			
 		}
    },
